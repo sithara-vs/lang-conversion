@@ -1,4 +1,8 @@
-.image{
+.movie-card{
     height:190px;
     width:190px;
+}
+.movie-cards-container{
+    display: flex;
+    justify-content: space-around;
 }

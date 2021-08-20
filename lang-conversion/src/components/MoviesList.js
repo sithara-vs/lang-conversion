@@ -4,6 +4,8 @@ class MoviesList extends Component {
     constructor(){
         super()
         this.state = {
+            movieTitleInput:"",
+            movieImageInput:"",
             movieList: [
                 {
                     movieTitle: "Lightstorm1",
@@ -16,19 +18,45 @@ class MoviesList extends Component {
             ]
         }
     }
+    handleMovieTitleInput(e){
+        
+        this.setState({movieTitleInput : e.target.value
+        })
+    }
+    handleMovieImageInput(e){
+        
+        this.setState({movieImageInput : e.target.value
+        })
+    }
+    handleAddMovie(){
+        const {movieList, movieTitleInput, movieImageInput} = this.state
+        this.setState({
+            movieList: [...movieList,{movieTitle: movieTitleInput , image: movieImageInput}],
+            movieImageInput: "",
+            movieTitleInput: ""
+
+        })
+    }
     render(){
+        console.log(this.state)
         const movieCards = this.state.movieList.map(element => {
             return(
                 <div>
                 <p>{element.movieTitle}</p>
-                <img className="image" src={element.image} alt={element.movieTitle}/>
+                <img className="movie-card" src={element.image} alt={element.movieTitle}/>
                 </div>
             )
         })
         return(
             <div>
                 <h1> Movie List</h1>
+                <input onChange={(e) => this.handleMovieTitleInput(e)}placeholder="movie title" value={this.state.movieTitleInput}/>
+                <input onChange={(e) => this.handleMovieImageInput(e)} placeholder="movie image" value={this.state.movieImageInput}/>
+                <button onClick={() => this.handleAddMovie()}>Add movie to list</button>
+                <section className="movie-cards-container">
                 {movieCards}
+                </section>
+               
             </div>
         )
     }
